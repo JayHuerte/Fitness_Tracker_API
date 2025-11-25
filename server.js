@@ -22,11 +22,11 @@ app.use(morgan('dev'));
 
 app.get('/', (req, res) => res.send('Fitness Tracker API is running'));
 
-app.use('/api/users', userRoutes);
-app.use('/api/workouts', workoutRoutes);
-app.use('/api/exercises', exerciseRoutes);
-app.use('/api/progress', progressRoutes);
-app.use('/api/goals', goalRoutes);
+app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/workouts', workoutRoutes);
+app.use('/api/v1/exercises', exerciseRoutes);
+app.use('/api/v1/progress', progressRoutes);
+app.use('/api/v1/goals', goalRoutes);
 
 app.use(errorHandler);
 
