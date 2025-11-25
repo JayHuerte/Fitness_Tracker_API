@@ -5,12 +5,74 @@ const validateId = require('../middleware/validateObjectId');
 
 /**
  * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       properties:
+ *         _id:
+ *           type: string
+ *         firstName:
+ *           type: string
+ *         lastName:
+ *           type: string
+ *         email:
+ *           type: string
+ *         age:
+ *           type: number
+ *         gender:
+ *           type: string
+ *           enum: [Male, Female, Other]
+ *         createdAt:
+ *           type: string
+ *         updatedAt:
+ *           type: string
+ *
+ *     UserInput:
+ *       type: object
+ *       required: [firstName, lastName, email, password]
+ *       properties:
+ *         firstName:
+ *           type: string
+ *         lastName:
+ *           type: string
+ *         email:
+ *           type: string
+ *         password:
+ *           type: string
+ *           minLength: 6
+ *         age:
+ *           type: number
+ *         gender:
+ *           type: string
+ *           enum: [Male, Female, Other]
+ *
+ *     UserUpdate:
+ *       type: object
+ *       properties:
+ *         firstName:
+ *           type: string
+ *         lastName:
+ *           type: string
+ *         email:
+ *           type: string
+ *         password:
+ *           type: string
+ *         age:
+ *           type: number
+ *         gender:
+ *           type: string
+ *           enum: [Male, Female, Other]
+ */
+
+/**
+ * @swagger
  * tags:
  *   name: Users
  *   description: User management
  */
 
- /**
+/**
  * @swagger
  * /api/v1/users:
  *   get:
@@ -19,6 +81,12 @@ const validateId = require('../middleware/validateObjectId');
  *     responses:
  *       200:
  *         description: List of users
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/User'
  */
 router.get('/', controller.getAllUsers);
 
@@ -34,6 +102,13 @@ router.get('/', controller.getAllUsers);
  *         schema:
  *           type: string
  *         required: true
+ *     responses:
+ *       200:
+ *         description: User found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
  */
 router.get('/:id', validateId, controller.getUserById);
 
@@ -48,19 +123,14 @@ router.get('/:id', validateId, controller.getUserById);
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             required: [firstName, lastName, email]
- *             properties:
- *               firstName:
- *                 type: string
- *               lastName:
- *                 type: string
- *               email:
- *                 type: string
- *               age:
- *                 type: number
- *               gender:
- *                 type: string
+ *             $ref: '#/components/schemas/UserInput'
+ *     responses:
+ *       201:
+ *         description: User created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
  */
 router.post('/', controller.createUser);
 
@@ -70,6 +140,25 @@ router.post('/', controller.createUser);
  *   put:
  *     summary: Update user
  *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UserUpdate'
+ *     responses:
+ *       200:
+ *         description: User updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
  */
 router.put('/:id', validateId, controller.updateUser);
 
@@ -79,6 +168,15 @@ router.put('/:id', validateId, controller.updateUser);
  *   delete:
  *     summary: Delete user
  *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *     responses:
+ *       200:
+ *         description: User deleted
  */
 router.delete('/:id', validateId, controller.deleteUser);
 
