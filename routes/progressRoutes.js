@@ -24,26 +24,6 @@ router.get('/', controller.getAllProgress);
 
 /**
  * @swagger
- * /api/v1/progress/{id}:
- *   get:
- *     summary: Get a progress record by ID
- *     tags: [Progress]
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: string
- *         required: true
- *     responses:
- *       200:
- *         description: Progress record
- *       404:
- *         description: Not found
- */
-router.get('/:id', validateId, controller.getProgressById);
-
-/**
- * @swagger
  * /api/v1/progress:
  *   post:
  *     summary: Create progress entry
@@ -65,35 +45,5 @@ router.get('/:id', validateId, controller.getProgressById);
  *         description: Progress created
  */
 router.post('/', controller.createProgress);
-
-/**
- * @swagger
- * /api/v1/progress/{id}:
- *   put:
- *     summary: Update progress entry
- *     tags: [Progress]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- */
-router.put('/:id', validateId, controller.updateProgress);
-
-/**
- * @swagger
- * /api/v1/progress/{id}:
- *   delete:
- *     summary: Delete progress entry
- *     tags: [Progress]
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: string
- *           required: true
- */
-router.delete('/:id', validateId, controller.deleteProgress);
 
 module.exports = router;

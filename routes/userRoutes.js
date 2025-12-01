@@ -92,28 +92,6 @@ router.get('/', controller.getAllUsers);
 
 /**
  * @swagger
- * /api/v1/users/{id}:
- *   get:
- *     summary: Get user by ID
- *     tags: [Users]
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: string
- *         required: true
- *     responses:
- *       200:
- *         description: User found
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/User'
- */
-router.get('/:id', validateId, controller.getUserById);
-
-/**
- * @swagger
  * /api/v1/users:
  *   post:
  *     summary: Create a user

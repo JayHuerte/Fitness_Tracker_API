@@ -24,27 +24,6 @@ router.get('/', controller.getAllExercises);
 
 /**
  * @swagger
- * /api/v1/exercises/{id}:
- *   get:
- *     summary: Get a single exercise by ID
- *     tags: [Exercises]
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: string
- *         required: true
- *         description: Exercise ID
- *     responses:
- *       200:
- *         description: Exercise data
- *       404:
- *         description: Exercise not found
- */
-router.get('/:id', validateId, controller.getExerciseById);
-
-/**
- * @swagger
  * /api/v1/exercises:
  *   post:
  *     summary: Create a new exercise
@@ -103,25 +82,5 @@ router.post('/', controller.createExercise);
  *         description: Exercise not found
  */
 router.put('/:id', validateId, controller.updateExercise);
-
-/**
- * @swagger
- * /api/v1/exercises/{id}:
- *   delete:
- *     summary: Delete an exercise by ID
- *     tags: [Exercises]
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: string
- *         required: true
- *     responses:
- *       200:
- *         description: Exercise deleted successfully
- *       404:
- *         description: Exercise not found
- */
-router.delete('/:id', validateId, controller.deleteExercise);
 
 module.exports = router;

@@ -21,15 +21,6 @@ router.get('/', controller.getAllWorkouts);
 
 /**
  * @swagger
- * /api/v1/workouts/{id}:
- *   get:
- *     summary: Get workout by ID
- *     tags: [Workouts]
- */
-router.get('/:id', validateId, controller.getWorkoutById);
-
-/**
- * @swagger
  * /api/v1/workouts:
  *   post:
  *     summary: Create a workout
