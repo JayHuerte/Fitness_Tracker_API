@@ -1,8 +1,8 @@
 const Progress = require('../models/Progress');
 
-exports.getAllProgress = async (req, res, next) => {
+exports.getUserProgress = async (req, res, next) => {
   try {
-    const progress = await Progress.find().sort({ createdAt: -1 });
+    const progress = await Progress.find({ user: req.params.userId }).sort({ date: -1 });
     res.json(progress);
   } catch (err) {
     next(err);
@@ -11,19 +11,13 @@ exports.getAllProgress = async (req, res, next) => {
 
 exports.createProgress = async (req, res, next) => {
   try {
-    const prog = new Progress(req.body);
-    await prog.save();
-    res.status(201).json(prog);
-  } catch (err) {
-    next(err);
-  }
-};
+    const entry = new Progress({
+      user: req.params.userId,
+      ...req.body
+    });
 
-exports.deleteProgress = async (req, res, next) => {
-  try {
-    const prog = await Progress.findByIdAndDelete(req.params.id);
-    if (!prog) return res.status(404).json({ message: 'Progress not found' });
-    res.json({ message: 'Progress deleted' });
+    await entry.save();
+    res.status(201).json(entry);
   } catch (err) {
     next(err);
   }
