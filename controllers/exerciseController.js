@@ -9,16 +9,6 @@ exports.getAllExercises = async (req, res, next) => {
   }
 };
 
-exports.getExerciseById = async (req, res, next) => {
-  try {
-    const exercise = await Exercise.findById(req.params.id);
-    if (!exercise) return res.status(404).json({ message: 'Exercise not found' });
-    res.json(exercise);
-  } catch (err) {
-    next(err);
-  }
-};
-
 exports.createExercise = async (req, res, next) => {
   try {
     const exercise = new Exercise(req.body);
