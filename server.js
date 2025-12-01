@@ -11,7 +11,6 @@ const userRoutes = require('./routes/userRoutes');
 const workoutRoutes = require('./routes/workoutRoutes');
 const exerciseRoutes = require('./routes/exerciseRoutes');
 const progressRoutes = require('./routes/progressRoutes');
-const goalRoutes = require('./routes/goalRoutes');
 const { errorHandler } = require('./middleware/errorHandler');
 
 const app = express();
@@ -31,7 +30,6 @@ app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/workouts', workoutRoutes);
 app.use('/api/v1/exercises', exerciseRoutes);
 app.use('/api/v1/progress', progressRoutes);
-app.use('/api/v1/goals', goalRoutes);
 
 app.use(errorHandler);
 
@@ -47,7 +45,4 @@ async function start() {
     process.exit(1);
   }
 }
-app.get("/api-docs-json", (req, res) => {
-  res.json(swaggerSpec);
-});
 start();
