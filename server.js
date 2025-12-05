@@ -17,7 +17,16 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Swagger docs
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use("/api-docs", swaggerUi.serve);
+app.get("/api-docs/swagger.json", (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.send(require("./config/swagger")(req));
+});
+app.use("/api-docs", swaggerUi.serveFiles(require("./config/swagger")()));
+app.get("/api-docs", (req, res, next) => {
+  const spec = require("./config/swagger")(req);
+  swaggerUi.setup(spec)(req, res, next);
+});
 
 app.use(helmet());
 app.use(cors());
